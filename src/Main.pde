@@ -32,13 +32,11 @@ void setupPoints() {
 
     for (int i = 0; i < points.length; i++) {
         PVector position = new toxi.geom.Vec2D(points[i][0], points[i][1]);
-        Particle p = new Particle(position);
+        Particle p = new Particle(position, i);
         physics.addParticle(p.tlParticle);
         p.tlParticle.lock();
         particles.add(p);
     }
-
-    console.log(particles.get(0).tlParticle);
 
     triangles = Delaunay.triangulate(points);
 
@@ -78,6 +76,9 @@ void mouseDragged() {
     if (activeParticle) {
         activeParticle.tlParticle.x = mouseX;
         activeParticle.tlParticle.y = mouseY;
+
+        points[activeParticle.iteration][0] = mouseX;
+        points[activeParticle.iteration][1] = mouseY;
     }
 }
 
@@ -88,6 +89,7 @@ void mouseReleased() {
 void draw() {
     background(255, 255, 255);
 
+    //triangles = Delaunay.triangulate(points);
     drawConnections();
 
     for (int i = 0; i < particles.size(); i++) {

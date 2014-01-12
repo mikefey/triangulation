@@ -8,9 +8,11 @@ class Particle {
     float aVelocity = 0;
     float aAcceleration = 0;
     toxi.physics2d.VerletParticle2D tlParticle;
+    int iteration;
 
-    Particle(PVector loc) {
+    Particle(PVector loc, int it) {
         tlParticle = new toxi.physics2d.VerletParticle2D(loc);
+        iteration = it;
     }
 
     void update() {
